@@ -1,18 +1,18 @@
 <template>
-  <div class="board-list-page">
+  <div class="post-list-page">
     <h1>포스트 게시글</h1>
-    <board-list :posts="posts"/>
+    <post-list :posts="posts"/>
   </div>
 </template>
 
 <script>
-  import BoardList from '@/components/BoardList'
+  import PostList from '@/components/PostList'
   import api from '@/api'
   import { mapState, mapActions } from 'vuex'
 
   export default {
-    name: 'BoardListPage',
-    components: { BoardList },
+    name: 'PostListPage',
+    components: { PostList },
     computed: {
       ...mapState([ 'posts' ])
     },

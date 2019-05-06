@@ -2,7 +2,9 @@ import {
   FETCH_POST_LIST,
   FETCH_POST,
   SET_ACCESS_TOKEN,
-  SET_MY_INFO
+  SET_MY_INFO,
+  DESTROY_ACCESS_TOKEN,
+  DESTROY_MY_INFO
 } from './mutations-types'
 import api from '@/api'
 import Cookies from 'js-cookie'
@@ -28,5 +30,13 @@ export default {
     if (me) {
       state.me = me
     }
+  },
+  [DESTROY_ACCESS_TOKEN] (state) {
+    state.accessToken = ''
+    delete api.defaults.headers.common.Authorization
+    Cookies.remove('accessToken')
+  },
+  [DESTROY_MY_INFO] (state) {
+    state.me = null
   }
 }

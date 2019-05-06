@@ -1,17 +1,17 @@
 <template>
-  <div class="board-view-page">
-    <board-view v-if="post" :post="post"/>
+  <div class="post-view-page">
+    <post-view v-if="post" :post="post"/>
     <p v-else>게시글 불러오는 중...</p>
-    <router-link :to="{ name: 'BoardListPage' }">목록</router-link>
+    <router-link :to="{ name: 'PostListPage' }">목록</router-link>
   </div>
 </template>
 <script>
   import { mapState, mapActions } from 'vuex'
-  import BoardView from '@/components/BoardView'
+  import PostView from '@/components/PostView'
 
   export default {
-    name: 'BoardViewPage',
-    components: { BoardView },
+    name: 'PostViewPage',
+    components: { PostView },
     props: {
       postId: {
         type: String,
