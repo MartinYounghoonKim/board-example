@@ -37,7 +37,7 @@
       },
       onClickSignout () {
         this.signout()
-        this.$router.push({ name: 'BoardListPage' })
+        this.$router.push({ name: 'PostListPage' })
       },
       ...mapActions([ 'signout' ])
     }

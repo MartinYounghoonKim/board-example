@@ -19,7 +19,7 @@
         this.signin(payload)
           .then(res => {
             alert('로그인이 완료되었습니다.')
-            this.$router.push({ name: 'BoardListPage' })
+            this.$router.push({ name: 'PostListPage' })
           })
           .catch(err => {
             alert(err.response.data.msg)
