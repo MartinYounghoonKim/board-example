@@ -7,7 +7,10 @@ import Signin from '@/pages/Signin'
 
 import AppHeader from '@/components/AppHeader'
 import PostCreatePage from '@/pages/PostCreatePage'
+import PostEditPage from '@/pages/PostEditPage'
+
 Vue.use(Router)
+import store from '@/store'
 
 export default new Router({
   mode: 'history',
@@ -26,6 +29,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: PostCreatePage
+      },
+      beforeEnter (to, from, next) {
+        const { isAuthorized } = store.getters
+        if (!isAuthorized) {
+          alert('로그인이 필요합니다!')
+          // 로그인이 되어있지 않다면 로그인 페이지로 이동시킨다.
+          next({ name: 'Signin' })
+        }
+        next()
       }
     },
     {
@@ -53,6 +65,31 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Signin
+      }
+    },
+    {
+      path: '/post/:postId/edit',
+      name: 'PostEditPage',
+      components: {
+        header: AppHeader,
+        default: PostEditPage
+      },
+      props: {
+        default: true
+      },
+      beforeEnter (to, from, next) {
+        const { isAuthorized } = store.getters
+        if (!isAuthorized) {
+          alert('로그인이 필요합니다!')
+          next({ name: 'Signin' })
+        }
+        store.dispatch('fetchPost', to.params.postId)
+          .then(res => {
+            next()
+          }).catch(err => {
+          alert(err.response.data.msg)
+          next(false)
+        })
       }
     }
   ]
