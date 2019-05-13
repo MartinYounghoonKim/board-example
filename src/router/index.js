@@ -85,12 +85,21 @@ export default new Router({
         }
         store.dispatch('fetchPost', to.params.postId)
           .then(res => {
-            next()
+            const post = store.state.post
+            const isAuthor = post.user.id === store.state.me.id
+            if (isAuthor) {
+              // 일치한다면 라우팅을 그대로 진행한다.
+              next()
+            } else {
+              // 일치하지않는다면 경고 문구를 노출시키고 이전 라우트로 이동시킨다.
+              alert('게시물의 작성자만 게시물을 수정할 수 있습니다.')
+              next(from)
+            }
           }).catch(err => {
           alert(err.response.data.msg)
           next(false)
         })
-      }
+      },
     }
   ]
 })

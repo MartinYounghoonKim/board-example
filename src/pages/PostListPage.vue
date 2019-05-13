@@ -18,6 +18,7 @@
       ...mapState([ 'posts' ])
     },
     created () {
+      console.log(123);
       this.fetchPostList()
     },
     methods: {
