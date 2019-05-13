@@ -82,6 +82,7 @@ export default new Router({
         if (!isAuthorized) {
           alert('로그인이 필요합니다!')
           next({ name: 'Signin' })
+          return false
         }
         store.dispatch('fetchPost', to.params.postId)
           .then(res => {
@@ -97,7 +98,7 @@ export default new Router({
             }
           }).catch(err => {
           alert(err.response.data.msg)
-          next(false)
+          next(from)
         })
       },
     }
